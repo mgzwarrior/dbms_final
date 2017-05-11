@@ -1,3 +1,9 @@
+main
+{       
+	flex: 1;
+	color: #000000;
+	text-align: center;
+}
 img.logo 
 {
 	margin: auto;

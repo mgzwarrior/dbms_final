@@ -8,19 +8,24 @@
 
 <body>
     <header>
-        <img class='logo' src='resources/stonehill_logo.jpg'>
+        <img class='logo' src="{{url_for('static', filename='stonehill_logo.jpg')}}">
     </header>
 
     <main>
         <h1>Login</h1>
-        <h3>Username</h3>
-        <input type='text' placeholder='Enter Username' name='uname' required>
-        <h3>Password</h3>
-        <input type='password' placeholder='Enter Password' name='psw' required>
+        <form action='/' method='post'>
+            <h3>Username</h3>
+            <input type='text' placeholder='Enter Username' name='username' required>
+            <h3>Password</h3>
+            <input type='password' placeholder='Enter Password' name='password' required>
+            <br>
+            <br>
+            <input type='submit' value='Login'>
+        </form>
         <br>
-        <br>
-        <button class="login" type='submit'>Login</button>
-        <br>
+        {% if error %}
+        {{error}}
+        {% endif %}
         <br>
         <button class="create">Create Account</button>
     </main>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <link rel='stylesheet' type='text/css' href='static/index.css'>
+    <title>Create Account</title>
+</head>
+
+<body>
+    <header>
+        <img class='logo' src="{{url_for('static', filename='stonehill_logo.jpg')}}">
+    </header>
+
+    <main>
+        <h1>Create Account</h1>
+        <form action='create' method='post'>
+            <h3>Username</h3>
+            <input type='text' placeholder='Enter Username' name='username' required>
+            <h3>Password</h3>
+            <input type='password' placeholder='Enter Password' name='password' required>
+            <h3>Confirm Password</h3>
+            <input type='password' placeholder='Confirm Password' name='confirm_password' required>
+            <br>
+            <br>
+            <input class='login_button' type='submit' value='Create Account'>
+        </form>
+        <br>
+        {% if error %}
+        {{error}}
+        {% endif %}
+        <br>
+        <form action='/' method='get'>
+            <input class='create_button' type='submit' value='Return to Login'>
+        </form>
+    </main>
+</body>
+
+<footer>
+
+</footer>
+</html>
+

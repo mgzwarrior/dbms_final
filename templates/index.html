@@ -20,14 +20,16 @@
             <input type='password' placeholder='Enter Password' name='password' required>
             <br>
             <br>
-            <input type='submit' value='Login'>
+            <input class='login_button' type='submit' value='Login'>
         </form>
         <br>
         {% if error %}
         {{error}}
         {% endif %}
         <br>
-        <button class="create">Create Account</button>
+        <form action='create' method='get'>
+            <input class='create_button' type='submit' value='Create Account'>
+        </form>
     </main>
 </body>
 

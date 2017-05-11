@@ -1,0 +1,31 @@
+header
+{       
+	flex: 1;
+	color: #000000;
+	text-align: center;
+}
+img.logo 
+{
+	margin: auto;
+}
+button 
+{
+	background-color: green;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	width: 100%;
+}
+button.create
+{
+	background-color: blue;
+}
+input
+{
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}

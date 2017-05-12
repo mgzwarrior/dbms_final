@@ -28,12 +28,37 @@
             <h3><b>Insert Student</b></h3>
         </div>
         <div class="w3-container w3-padding-32 w3-center">
-            <h4>Students</h4>
-            <div class='w3-button'>
-                <form action='/insert-student'>
-                    <input type='submit' name='insert-student' value='Create Student'>
-                </form>
-            </div>
+            <form action='/insert-student' enctype=multipart/form-data method='post'>
+                <h4>Student ID*</h4>
+                <input type='text' name='student_id'>
+                <br>
+                <h4>Major</h4>
+                <input type='text' name='major'>
+                <br>
+                <h4>Minor</h4>
+                <input type='text' name='minor'>
+                <br>
+                <h4>Name*</h4>
+                <input type='text' name='name'>
+                <br>
+                <h4>Phone*</h4>
+                <input type='tel' name='phone'>
+                <br>
+                <h4>Street*</h4>
+                <input type='text' name='street'>
+                <br>
+                <h4>City*</h4>
+                <input type='text' name='city'>
+                <br>
+                <h4>State*</h4>
+                <input type='text' name='state'>
+                <br>
+                <h4>Zip Code*</h4>
+                <input type='text' name='zip_code'>
+                <br>
+                <br>
+                <input type='submit' name='insert-student' accept='image/*' value='Create Student'>
+            </form>
         </div>
         <hr>
 

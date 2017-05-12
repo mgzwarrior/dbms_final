@@ -1,5 +1,5 @@
 class Student():
-    def __init__(self, student_id, major, minor, name, phone, street, city, state, zip_code, photo):
+    def __init__(self, student_id, major, minor, name, phone, street, city, state, zip_code):
         self.student_id = student_id
         self.major = major
         self.minor = minor
@@ -9,7 +9,6 @@ class Student():
         self.city = city
         self.state = state
         self.zip_code = zip_code
-        self.photo = photo
 
     def getStudentId(self):
         return self.student_id
@@ -65,14 +64,8 @@ class Student():
     def setZipCode(self, zip_code):
         self.zip_code = zip_code
 
-    def getPhoto(self):
-        return self.photo
-
-    def setPhoto(self, photo):
-        self.photo = photo
-
     def __str__(self):
-        return 'id = ' + self.getsSudentId() + \
+        return 'id = ' + self.getStudentId() + \
                 'major = ' + self.getMajor() + \
                 'minor = ' + self.getMinor() + \
                 'name = ' + self.getName() + \
@@ -80,5 +73,4 @@ class Student():
                 'street = ' + self.getStreet() + \
                 'city = ' + self.getCity() + \
                 'state = ' + self.getState() + \
-                'zip = ' + self.getZipCode() + \
-                'photo = ' + self.getPhoto()
+                'zip = '

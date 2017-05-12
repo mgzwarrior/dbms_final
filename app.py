@@ -41,7 +41,9 @@ def create():
 
 @app.route('/home/<username>', methods=['POST', 'GET'])
 def home(username):
-    return render_template('home.html', username=username)
+    dao = StudentDAO()
+    students = dao.selectAll()
+    return render_template('home.html', username=username, students=students)
 
 @app.route('/logout')
 def logout():
@@ -50,9 +52,27 @@ def logout():
 @app.route('/insert-student', methods=['POST', 'GET'])
 def insertStudent():
     if request.method == 'POST':
-        return render_template('insert-student.html')
+       student_id = request.form['student_id']
+       major = request.form['major']
+       minor = request.form['minor']
+       name = request.form['name']
+       phone = request.form['phone']
+       street = request.form['street']
+       city = request.form['city']
+       state = request.form['state']
+       zip_code = request.form['zip_code']
+       student = Student(student_id, major, minor, name, phone, street, city, state, zip_code)
+       if insertStudent(student):
+           return redirect(url_for('home'))
+       else:
+           error = 'ERROR'
+           return render_template('insert-student.html', error=error)
     else:
         return render_template('insert-student.html')
+
+@app.route('/student', methods=['POST', 'GET'])
+def student():
+    return render_template('student.html')
 
 def isValid(username, password):
     dao = UserDAO()
@@ -67,6 +87,13 @@ def insertUser(username, password):
     if user == None:
         return False
     return username == user.getUsername() and password == user.getPassword()
+
+def insertStudent(student):
+    dao = StudentDAO()
+    student = dao.insert(student)
+    if student == None:
+        return False
+    return True
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8081)

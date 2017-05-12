@@ -1,0 +1,6 @@
+input[type=submit]
+{
+    background-color: inherit;
+    border: none;
+    text-decoration: none;
+}

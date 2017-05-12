@@ -11,11 +11,9 @@ class UserDAO():
         cursor = self.db.cursor()
         try:
             cursor.execute(sql, params)
-        except cx_Oracle.DatabaseError as e:
+        except cx_Oracle.IntegrityError as e:
             error, = e.args
             print(error.code)
-            print(error.messages)
-            print(error.context)
             return None
         row = cursor.fetchone()
         cursor.close()
@@ -29,15 +27,13 @@ class UserDAO():
                 '(username, password) '\
                 'VALUES (:username, :password)'
         params = user.__dict__
+        cursor = self.db.cursor()
         try:
-            cursor = self.db.cursor()
-        except cx_Oracle.DatabaseError as e:
+            cursor.execute(sql, params)
+        except cx_Oracle.IntegrityError as e:
             error, = e.args
             print(error.code)
-            print(error.messages)
-            print(error.context)
             return None
-        cursor.execute(sql, params)
         self.db.commit()
         cursor.close()
         return self.select(user.getUsername())

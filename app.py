@@ -12,7 +12,7 @@ def index():
         username = request.form['username']
         password = request.form['password']
         if isValid(username, password):
-            return redirect(url_for('home'))
+            return redirect(url_for('home', username=username))
         else:
             error = 'Error: Invalid username/password'
             return render_template('index.html', error=error)
@@ -30,25 +30,33 @@ def create():
             error = 'Error: Passwords do not match'
             return render_template('create.html', error=error)
         if insert(username, password):
-            return redirect(url_for('home'))
+            return redirect(url_for('home', username=username))
         else:
             error = 'Error: Username ' + username + ' is taken'
             return render_template('create.html', error=error)
     else:
         return render_template('create.html')
 
-@app.route('/home', methods=['POST', 'GET'])
-def home():
-    return render_template('home.html')
+@app.route('/home/<username>', methods=['POST', 'GET'])
+def home(username):
+    return render_template('home.html', username=username)
+
+@app.route('/logout')
+def logout():
+    return redirect(url_for('index'))
 
 def isValid(username, password):
     dao = UserDAO()
     user = dao.select(username)
+    if user == None:
+        return False
     return password == user.getPassword()
 
 def insert(username, password):
     dao = UserDAO()
     user = dao.insert(User(username, password))
+    if user == None:
+        return False
     return username == user.getUsername() and password == user.getPassword()
     
 if __name__ == '__main__':

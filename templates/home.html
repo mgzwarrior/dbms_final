@@ -2,11 +2,47 @@
 <html>
     <head>
         <meta charset='UTF-8'>
-        <link rel='stylesheet' type='text/css' href='home.css'>
+        <link rel="stylesheet" href="/static/home.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <title>Home</title>
     </head>
 
     <body>
-        <h1>Hello, world!</h1>
+        <header>
+            <!-- Sidebar (hidden by default) -->
+            <nav class="w3-sidebar w3-bar-block w3-card-2 w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+                <a href="javascript:void(0)" onclick="w3_close()"
+                        class="w3-bar-item w3-button">Close Menu</a>
+                <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Departments</a>
+                <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">Students</a>
+            </nav>
+
+            <!-- Top menu -->
+            <div class="w3-top">
+                  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+                      <div class="w3-button w3-right w3-padding-16">
+                          <form action='/logout'>
+                              <input type='submit' name='logout' value='Logout'/>
+                          </form>
+                      </div>
+                  </div>
+            </div>
+        </header>
+
+        <!-- !PAGE CONTENT! -->
+        <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+        <!-- About Section -->
+            <div class="w3-container w3-padding-32 w3-center">  
+                <h3><b>Welcome to pyBase, {{username}}!</b></h3>
+            </div>
+            <div class="w3-container w3-padding-32 w3-center">
+                <h4>Students</h4>
+            </div>
+            <hr>
+
+            <footer>
+
+            </footer>
+        </div>
     </body>
 </html>

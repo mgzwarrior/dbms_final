@@ -1,7 +1,9 @@
 from flask import Flask
 from flask import abort, redirect, url_for, request, render_template
 from models.user import User
+from models.student import Student
 from dao.user_dao import UserDAO
+from dao.student_dao import StudentDAO
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -29,7 +31,7 @@ def create():
         if password != confirm_password:
             error = 'Error: Passwords do not match'
             return render_template('create.html', error=error)
-        if insert(username, password):
+        if insertUser(username, password):
             return redirect(url_for('home', username=username))
         else:
             error = 'Error: Username ' + username + ' is taken'
@@ -45,6 +47,13 @@ def home(username):
 def logout():
     return redirect(url_for('index'))
 
+@app.route('/insert-student', methods=['POST', 'GET'])
+def insertStudent():
+    if request.method == 'POST':
+        return render_template('insert-student.html')
+    else:
+        return render_template('insert-student.html')
+
 def isValid(username, password):
     dao = UserDAO()
     user = dao.select(username)
@@ -52,7 +61,7 @@ def isValid(username, password):
         return False
     return password == user.getPassword()
 
-def insert(username, password):
+def insertUser(username, password):
     dao = UserDAO()
     user = dao.insert(User(username, password))
     if user == None:

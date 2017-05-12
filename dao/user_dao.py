@@ -43,3 +43,6 @@ class UserDAO():
         username = row[0]
         password = row[1]
         return User(username, password)
+
+    def __del__(self):
+        self.db.close()

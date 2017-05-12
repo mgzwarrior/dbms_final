@@ -28,9 +28,10 @@ class StudentDAO():
 
     def insert(self, student):
         sql = 'INSERT INTO Students ' \
-                '(id, major, minor, name, phone, street, city, state, zip, picture)' \
+                '(id, major, minor, name, phone, street, city, state, zip)' \
                 'VALUES (:student_id, :major, :minor, :name, :phone, :street, :city, :state, :zip_code)'
         params = student.__dict__
+        print params
         cursor = self.db.cursor()
         cursor.execute(sql, params)
         self.db.commit()
@@ -47,8 +48,10 @@ class StudentDAO():
         return self.select(student.getStudentId())
 
     def delete(self, student_id):
+        if student_id == None:
+            return False
         sql = 'DELETE FROM Students WHERE id = :student_id'
-        params = {'id':student_id}
+        params = {'student_id':student_id}
         cursor = self.db.cursor()
         cursor.execute(sql, params)
         self.db.commit()

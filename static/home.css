@@ -1,4 +1,4 @@
-header input[type=submit]
+header input[type=submit], header input[type=submit]:hover
 {
     background-color: inherit;
     border: none;
@@ -16,5 +16,13 @@ input[type=submit]:hover
 }
 table
 {
-    align: center;
+    border-collapse: collapse;
+}
+table, th, td
+{
+    border: 1px solid black;
+}
+th
+{
+    background-color: #6DCDB8;
 }

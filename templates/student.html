@@ -26,14 +26,27 @@
         <!-- About Section -->
         <div class="w3-container w3-padding-32 w3-center">
             <h3><b>{{student.name}}</b></h3>
+            <h4>Student ID</h4>
+            <p>{{student.student_id}}</p>
+            <h4>Major</h4>
+            <p>{{student.major}}</p>
+            <h4>Minor</h4>
+            <p>{{student.minor}}</p>
+            <h4>Phone</h4>
+            <p>{{student.phone}}</p>
+            <h4>Street</h4>
+            <p>{{student.street}}</p>
+            <h4>City</h4>
+            <p>{{student.city}}</p>
+            <h4>State</h4>
+            <p>{{student.state}}</p>
+            <h4>Zip Code</h4>
+            <p>{{student.zip_code}}</p>
         </div>
         <div class="w3-container w3-padding-32 w3-center">
-            <h4></h4>
-            <div class='w3-button'>
-                <form action='/insert-student'>
-                    <input type='submit' name='insert-student' value='Create Student'>
-                </form>
-            </div>
+            <form method='post' action="{{url_for('deleteStudent', student_id=student.student_id)}}">
+                <input type='submit' name='delete-student' value='Delete Student'>
+            </form>
         </div>
         <hr>
 

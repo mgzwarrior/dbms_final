@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import abort, redirect, url_for, request, render_template
+from flask import abort, redirect, url_for, request, render_template, session
 from models.user import User
 from models.student import Student
 from dao.user_dao import UserDAO
@@ -14,7 +14,8 @@ def index():
         username = request.form['username']
         password = request.form['password']
         if isValid(username, password):
-            return redirect(url_for('home', username=username))
+            session['username'] = username
+            return redirect(url_for('home'))
         else:
             error = 'Error: Invalid username/password'
             return render_template('index.html', error=error)
@@ -32,21 +33,23 @@ def create():
             error = 'Error: Passwords do not match'
             return render_template('create.html', error=error)
         if insertUser(username, password):
-            return redirect(url_for('home', username=username))
+            return redirect(url_for('home'))
         else:
             error = 'Error: Username ' + username + ' is taken'
             return render_template('create.html', error=error)
     else:
         return render_template('create.html')
 
-@app.route('/home/<username>', methods=['POST', 'GET'])
-def home(username):
+@app.route('/home', methods=['POST', 'GET'])
+def home():
+    username = session['username']
     dao = StudentDAO()
     students = dao.selectAll()
     return render_template('home.html', username=username, students=students)
 
 @app.route('/logout')
 def logout():
+    session.pop('username', None)
     return redirect(url_for('index'))
 
 @app.route('/insert-student', methods=['POST', 'GET'])
@@ -72,7 +75,20 @@ def insertStudent():
 
 @app.route('/student', methods=['POST', 'GET'])
 def student():
-    return render_template('student.html')
+    student_id = request.args.get('student_id', None)
+    dao = StudentDAO()
+    student = dao.select(student_id)
+    return render_template('student.html', student=student)
+
+@app.route('/delete-student', methods=['POST', 'GET'])
+def deleteStudent():
+    student_id = request.args.get('student_id', None)
+    dao = StudentDAO()
+    if dao.delete(student_id):
+        return redirect(url_for('home'))
+    else:
+        error = "ERROR"
+        return redirect(url_for('student', student=dao.select(student_id), error=error))
 
 def isValid(username, password):
     dao = UserDAO()
@@ -96,4 +112,5 @@ def insertStudent(student):
     return True
     
 if __name__ == '__main__':
+    app.secret_key = '=fvf#k!x7&heo!$(y#&0dpz%agn39nl7u=v8&az4@*d1yd#+2q'
     app.run(host='0.0.0.0', port=8081)

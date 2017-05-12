@@ -18,3 +18,4 @@ class User():
     def __str__(self):
         return 'username = ' + self.getUsername() + \
                 'password = ' + self.getPassword()
+ 

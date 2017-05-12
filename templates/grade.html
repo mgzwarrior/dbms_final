@@ -4,7 +4,7 @@
     <meta charset='UTF-8'>
     <link rel="stylesheet" href="/static/home.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <title>Grade</title>
+    <title>{{student.name}}'s {{course.name}} Grade</title>
 </head>
 
 <body>
@@ -25,13 +25,17 @@
     <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
         <!-- About Section -->
         <div class="w3-container w3-padding-32 w3-center">
-            <h3><b>Grade</b></h3>
-            <h4>Grade</h4>
-            <p>{{grade.grade}}</p>
+            <h3><b>{{student.name}}'s {{course.name}} Grade</b></h3>
             <h4>Student_ID</h4>
             <p>{{grade.student_id}}</p>
+            <h4>Major</h4>
+            <p>{{student.major}}</p>
             <h4>Course_ID</h4>
             <p>{{grade.course_id}}</p>
+            <h4>Professor</h4>
+            <p>{{course.professor}}</p>
+            <h4>Grade</h4>
+            <p>{{grade.grade}}</p>
         </div>
         <div class="w3-container w3-padding-32 w3-center">
             <form method='post' action="{{url_for('deleteGrade', student_id=grade.student_id, course_id=grade.course_id)}}">

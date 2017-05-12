@@ -37,6 +37,7 @@ def create():
             error = 'Error: Passwords do not match'
             return render_template('create.html', error=error)
         if insertUser(username, password):
+            session['username'] = username
             return redirect(url_for('home'))
         else:
             error = 'Error: Username ' + username + ' is taken'
@@ -151,15 +152,19 @@ def insertGrade():
 def grade():
     student_id = request.args.get('student_id', None)
     course_id = request.args.get('course_id', None)
+    dao = StudentDAO()
+    student = dao.select(student_id)
     dao = CourseDAO()
-    course = dao.select(student_id, course_id)
-    return render_template('grade.html', grade=grade)
+    course = dao.select(course_id)
+    dao = GradeDAO()
+    grade = dao.select(student_id, course_id)
+    return render_template('grade.html', student=student, course=course, grade=grade)
 
 @app.route('/delete-grade', methods=['POST', 'GET'])
 def deleteGrade():
     student_id = request.args.get('student_id', None)
     course_id = request.args.get('course_id', None)
-    dao = CourseDAO()
+    dao = GradeDAO()
     if dao.delete(student_id, course_id):
         return redirect(url_for('home'))
     else:

@@ -6,7 +6,7 @@ class GradeDAO():
         self.db = cx_Oracle.connect('mgrant/csrocks33@//csc325.cjjvanphib99.us-west-2.rds.amazonaws.com:1521/ORCL')
 
     def select(self, student_id, course_id):
-        sql = 'SELECT * FROM Grades WHERE student_id = :student_id && course_id = :course_id'
+        sql = 'SELECT * FROM Grades WHERE student_id = :student_id AND course_id = :course_id'
         params = {'student_id':student_id, 'course_id':course_id}
         cursor = self.db.cursor()
         cursor.execute(sql, params)
@@ -36,7 +36,7 @@ class GradeDAO():
         cursor.execute(sql, params)
         self.db.commit()
         cursor.close()
-        return self.select(grade.getGradeId())
+        return self.select(grade.getStudentId(), grade.getCourseId())
 
     def update(self, grade):
         sql = 'UPDATE Grades SET grade = :grade, student_id = :student_id, course_id = :course_id)'
@@ -48,9 +48,10 @@ class GradeDAO():
         return self.select(grade.getGradeId())
 
     def delete(self, student_id, course_id):
+        grade = self.select(student_id, course_id)
         if grade == None:
             return False
-        sql = 'DELETE FROM Grades WHERE student_id = :student_id && course_id = :course_id'
+        sql = 'DELETE FROM Grades WHERE student_id = :student_id AND course_id = :course_id'
         params = {'student_id':student_id, 'course_id':course_id}
         cursor = self.db.cursor()
         cursor.execute(sql, params)

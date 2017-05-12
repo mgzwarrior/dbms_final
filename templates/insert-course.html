@@ -28,24 +28,24 @@
             <h3><b>Insert Course</b></h3>
         </div>
         <div class="w3-container w3-padding-32 w3-center">
-            <form action='/insert-student' enctype=multipart/form-data method='post'>
+            <form action='/insert-course' method='post'>
                 <h4>Course ID*</h4>
-                <input type='text' name='course_id'>
+                <input type='text' name='course_id' required>
                 <br>
                 <h4>Name*</h4>
-                <input type='text' name='name'>
+                <input type='text' name='name' required>
                 <br>
                 <h4>Department*</h4>
-                <input type='tel' name='department'>
+                <input type='tel' name='department' required>
                 <br>
                 <h4>Professor*</h4>
-                <input type='text' name='professor'>
+                <input type='text' name='professor' required>
                 <br>
                 <h4>Classroom*</h4>
-                <input type='text' name='classroom'>
+                <input type='text' name='classroom' required>
                 <br>
                 <br>
-                <input type='submit' name='insert-student' accept='image/*' value='Create Course'>
+                <input type='submit' name='insert-course' value='Create Course'>
             </form>
         </div>
         <hr>

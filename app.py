@@ -47,7 +47,9 @@ def home():
     username = session['username']
     dao = StudentDAO()
     students = dao.selectAll()
-    return render_template('home.html', username=username, students=students)
+    dao = CourseDAO()
+    courses = dao.selectAll()
+    return render_template('home.html', username=username, students=students, courses=courses)
 
 @app.route('/logout')
 def logout():

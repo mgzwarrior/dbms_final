@@ -41,4 +41,4 @@ class Course():
                 'name = ' + self.getName() + \
                 'department = ' + self.getDepartment() + \
                 'professor = ' + self.getProfessor() + \
-                'classroom = ' + self.getClassroom() + \
+                'classroom = ' + self.getClassroom()

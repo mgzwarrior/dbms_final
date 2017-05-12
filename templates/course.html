@@ -36,7 +36,7 @@
             <p>{{course.classroom}}</p>
         </div>
         <div class="w3-container w3-padding-32 w3-center">
-            <form method='post' action="{{url_for('deletecourse', course_id=course.course_id)}}">
+            <form method='post' action="{{url_for('deleteCourse', course_id=course.course_id)}}">
                 <input type='submit' name='delete-course' value='Delete Course'>
             </form>
         </div>

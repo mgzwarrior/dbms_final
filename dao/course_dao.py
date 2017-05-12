@@ -6,7 +6,7 @@ class CourseDAO():
         self.db = cx_Oracle.connect('mgrant/csrocks33@//csc325.cjjvanphib99.us-west-2.rds.amazonaws.com:1521/ORCL')
 
     def select(self, course_id):
-        sql = 'SELECT * FROM Courses WHERE id = :course_id'
+        sql = 'SELECT * FROM Courses WHERE course_id = :course_id'
         params = {'course_id':course_id}
         cursor = self.db.cursor()
         cursor.execute(sql, params)

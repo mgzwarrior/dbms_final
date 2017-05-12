@@ -81,6 +81,33 @@
       <h3>Currenly no courses in the database.</h3>
       {% endif %}
     </div>
+    <div class="w3-container w3-padding-32 w3-center">
+      <h4>Grades</h4>
+      <form action='/insert-grade'>
+        <input type='submit' name='insert-grade' value='Create Grade'>
+      </form>
+      <br>
+      {% if grades != None %}
+      <table align='center'>
+        <thead>
+          <tr>
+            <th>Student ID</th>
+            <th>Course ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for grade in grades %}
+          <tr>
+            <td><a href="{{url_for('grade', student_id=grade.student_id, course_id=grade.course_id)}}">{{grade.student_id}}</a></td>
+            <td>{{grade.course_id}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <h3>Currenly no grades in the database.</h3>
+      {% endif %}
+    </div>
     <hr>
 
     <footer>

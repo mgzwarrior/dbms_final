@@ -3,9 +3,11 @@ from flask import abort, redirect, url_for, request, render_template, session
 from models.user import User
 from models.student import Student
 from models.course import Course
+from models.grade import Grade
 from dao.user_dao import UserDAO
 from dao.student_dao import StudentDAO
 from dao.course_dao import CourseDAO
+from dao.grade_dao import GradeDAO
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -49,7 +51,9 @@ def home():
     students = dao.selectAll()
     dao = CourseDAO()
     courses = dao.selectAll()
-    return render_template('home.html', username=username, students=students, courses=courses)
+    dao = GradeDAO()
+    grades = dao.selectAll()
+    return render_template('home.html', username=username, students=students, courses=courses, grades=grades)
 
 @app.route('/logout')
 def logout():
@@ -128,6 +132,40 @@ def deleteCourse():
         error = "ERROR"
         return redirect(url_for('course', course=dao.select(course_id), error=error))
 
+@app.route('/insert-grade', methods=['POST', 'GET'])
+def insertGrade():
+    if request.method == 'POST':
+       grade = request.form['grade']
+       student_id = request.form['student_id']
+       course_id = request.form['course_id']
+       grade = Grade(grade, student_id, course_id)
+       if insertGrade(grade):
+           return redirect(url_for('home'))
+       else:
+           error = 'ERROR'
+           return render_template('insert-grade.html', error=error)
+    else:
+        return render_template('insert-grade.html')
+
+@app.route('/grade', methods=['POST', 'GET'])
+def grade():
+    student_id = request.args.get('student_id', None)
+    course_id = request.args.get('course_id', None)
+    dao = CourseDAO()
+    course = dao.select(student_id, course_id)
+    return render_template('grade.html', grade=grade)
+
+@app.route('/delete-grade', methods=['POST', 'GET'])
+def deleteGrade():
+    student_id = request.args.get('student_id', None)
+    course_id = request.args.get('course_id', None)
+    dao = CourseDAO()
+    if dao.delete(student_id, course_id):
+        return redirect(url_for('home'))
+    else:
+        error = "ERROR"
+        return redirect(url_for('grade', grade=dao.select(student_id, course_id), error=error))
+
 def isValid(username, password):
     dao = UserDAO()
     user = dao.select(username)
@@ -153,6 +191,13 @@ def insertCourse(course):
     dao = CourseDAO()
     course = dao.insert(course)
     if course == None:
+        return False
+    return True
+
+def insertGrade(grade):
+    dao = GradeDAO()
+    grade = dao.insert(grade)
+    if grade == None:
         return False
     return True
     

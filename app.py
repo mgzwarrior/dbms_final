@@ -2,8 +2,10 @@ from flask import Flask
 from flask import abort, redirect, url_for, request, render_template, session
 from models.user import User
 from models.student import Student
+from models.course import Course
 from dao.user_dao import UserDAO
 from dao.student_dao import StudentDAO
+from dao.course_dao import CourseDAO
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
@@ -90,6 +92,40 @@ def deleteStudent():
         error = "ERROR"
         return redirect(url_for('student', student=dao.select(student_id), error=error))
 
+@app.route('/insert-course', methods=['POST', 'GET'])
+def insertCourse():
+    if request.method == 'POST':
+       course_id = request.form['course_id']
+       name = request.form['name']
+       department = request.form['department']
+       professor = request.form['professor']
+       classroom = request.form['classroom']
+       course = Course(course_id, name, department, professor, classroom,)
+       if insertCourse(course):
+           return redirect(url_for('home'))
+       else:
+           error = 'ERROR'
+           return render_template('insert-course.html', error=error)
+    else:
+        return render_template('insert-course.html')
+
+@app.route('/course', methods=['POST', 'GET'])
+def course():
+    course_id = request.args.get('course_id', None)
+    dao = CourseDAO()
+    course = dao.select(course_id)
+    return render_template('course.html', course=course)
+
+@app.route('/delete-course', methods=['POST', 'GET'])
+def deleteCourse():
+    course_id = request.args.get('course_id', None)
+    dao = CourseDAO()
+    if dao.delete(course_id):
+        return redirect(url_for('home'))
+    else:
+        error = "ERROR"
+        return redirect(url_for('course', course=dao.select(course_id), error=error))
+
 def isValid(username, password):
     dao = UserDAO()
     user = dao.select(username)
@@ -108,6 +144,13 @@ def insertStudent(student):
     dao = StudentDAO()
     student = dao.insert(student)
     if student == None:
+        return False
+    return True
+
+def insertCourse(course):
+    dao = CourseDAO()
+    course = dao.insert(course)
+    if course == None:
         return False
     return True
     

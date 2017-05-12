@@ -34,11 +34,11 @@
       </form>
       <br>
       {% if students != None %}
-      <table align='center' class="tablesorter">
+      <table align='center'>
         <thead>
           <tr>
-            <th onclick='sortTable(0)'>Student ID</th>
-            <th onclick='sortTable(1)'>Name</th>
+            <th>Student ID</th>
+            <th>Name</th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +52,33 @@
       </table>
       {% else %}
       <h3>Currenly no students in the database.</h3>
+      {% endif %}
+    </div>
+    <div class="w3-container w3-padding-32 w3-center">
+      <h4>Courses</h4>
+      <form action='/insert-course'>
+        <input type='submit' name='insert-course' value='Create Course'>
+      </form>
+      <br>
+      {% if courses != None %}
+      <table align='center'>
+        <thead>
+          <tr>
+            <th>Course ID</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for course in courses %}
+          <tr>
+            <td><a href="{{url_for('course', course_id=course.course_id)}}">{{course.course_id}}</a></td>
+            <td>{{course.name}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <h3>Currenly no courses in the database.</h3>
       {% endif %}
     </div>
     <hr>
